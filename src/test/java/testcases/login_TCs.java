@@ -19,6 +19,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import browsers.Chrome;
+import net.bytebuddy.asm.Advice.Local;
 import phptravels.pages.login;
 import ru.yandex.qatools.ashot.AShot;
 import ru.yandex.qatools.ashot.Screenshot;
@@ -29,6 +30,7 @@ import ru.yandex.qatools.ashot.shooting.ShootingStrategies;
 public class login_TCs {
 	WebDriver driver;
 	boolean testFail = true;
+	String filename;
 	//@Rule
 	// public ScreenShotOnFailure failure = new ScreenShotOnFailure(driver);
 	
@@ -41,6 +43,7 @@ public class login_TCs {
 	
 	@Test
 	public void emailValidationCheck() {
+		filename = "emailValidationCheck";
 		//Instantiating the login page class and using the web elements 
 		login Login = new login(driver);
 		Login.wePassword.sendKeys("sdfsdfs");
@@ -52,6 +55,7 @@ public class login_TCs {
 	
 	@Test
 	public void passwordValidationCheck() {
+		filename = "passwordValidationCheckk";
 		//Instantiating the login page class and using the web elements 
 		login Login = new login(driver);
 		Login.weEmail.sendKeys("sdfs@dfs");
@@ -63,6 +67,7 @@ public class login_TCs {
 	
 	@Test
 	public void loginHappyPath() {
+		filename = "loginHappyPath";
 		//Instantiating the login page class and using the web elements 
 		login Login = new login(driver);
 		Login.weEmail.sendKeys("user@phptravels.com");
@@ -80,7 +85,7 @@ public class login_TCs {
 	public void afterTest() throws IOException {		
 		if(testFail = true) {
 		Screenshot screenshot = new AShot().shootingStrategy(ShootingStrategies.viewportPasting(1000)).takeScreenshot(driver);
-		ImageIO.write(screenshot.getImage(), "jpg", new File("E:/ElementScreenshot.jpg"));
+		ImageIO.write(screenshot.getImage(), "jpg", new File("E:/"+filename+".jpg"));
 		}
 		driver.close();	
 	}
